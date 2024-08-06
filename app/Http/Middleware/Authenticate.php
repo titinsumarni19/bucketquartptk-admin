@@ -4,9 +4,6 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Closure;
-
 
 class Authenticate extends Middleware
 {
@@ -15,10 +12,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect ke halaman login jika tidak terotentikasi
+        if (! $request->expectsJson()) {
+            // Check if the user is trying to access a specific route
+            return route('login');
         }
-
-        return $next($request);
+        
+        return null;
     }
 }

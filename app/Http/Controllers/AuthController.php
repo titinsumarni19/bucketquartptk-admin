@@ -3,77 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    /**
-     * Show the login form.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         return view('pages.auth.login');
     }
 
-    /**
-     * Handle user login.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function login(Request $request)
     {
-        // Validate the request input
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string',
-            'password' => 'required|string',
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $client = new Client();
+        $url = 'http://103.175.217.148/user/login';
 
         try {
-            // Initialize Guzzle client
-            $client = new Client();
-            
-            // Send POST request to external API for login
-            $response = $client->request('POST', 'http://103.175.217.148/user/login', [
+            $response = $client->post($url, [
                 'json' => [
-                    'username' => $request->input('username'),
-                    'password' => $request->input('password'),
+                    'username' => $username,
+                    'password' => $password
                 ]
             ]);
 
-            // Decode response content
-            $data = json_decode($response->getBody()->getContents(), true);
+            $data = json_decode($response->getBody(), true);
 
-            // Check if login was successful
-            if (isset($data['msg']) && $data['msg'] === 'Berhasil Login') {
-                // Store user data in session
-                Session::put([
-                    'logged_in' => true,
-                    'user_id' => $data['data']['_id'],
-                    'nama' => $data['data']['namalengkap'],
-                    'username' => $data['data']['username'],
-                ]);
-
-                // Regenerate session ID to prevent session fixation attacks
-                $request->session()->regenerate();
-
-                // Redirect to dashboard route or URL
-                return redirect('dashboard');
+            if ($data['sukses'] && $data['sukses']) {
+                Session::put('userId', $data['data']['_id']);
+                return redirect()->route('dashboard');
             } else {
-                // Redirect back with error message from API response
-                return redirect()->back()->withErrors(['message' => $data['msg']]);
+                return back()->with('error', $data['msg']);
             }
         } catch (\Exception $e) {
-            // Handle exceptions (e.g., network issues) gracefully
-            return redirect()->back()->withErrors(['message' => 'An error occurred during the login process. Please try again later.']);
+            return back()->with('error', 'Failed to authenticate: ' . $e->getMessage());
         }
+    }
+
+    public function logout()
+    {
+        // Clear user session
+        Session::forget('user');
+        
+        // Redirect to login page
+        return redirect()->route('login');
     }
 }
