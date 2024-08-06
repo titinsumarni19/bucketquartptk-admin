@@ -43,14 +43,14 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Admin - Bucketquarptk</h1>
                                     </div>
-                                    <form class="user"  action="{{ route('auth.login') }}" method="POST">
+                                    <form class="user"  action="{{ url('/login') }}" method="POST" class="needs-validation">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
+                                            <input type="text" id="username" class="form-control form-control-user"
                                                 name="username" placeholder="Masukkan Username">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" id="password" class="form-control form-control-user"
                                               name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">

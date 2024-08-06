@@ -3,39 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Client;
 
 class AuthController extends Controller
 {
-    public function loginForm()
+    public function index()
     {
         return view('pages.auth.login');
     }
 
     public function login(Request $request)
     {
-        
-        $response = Http::post('http://103.175.217.148/user/login', [
-            'username' => $request->input('username'),
-            'password' => $request->input('password')
+        // Validate the request input
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
         ]);
 
-        $responseData = $response->json();
+        try {
+            $client = new Client();
+            $response = $client->request('POST', 'http://103.175.217.148/user/login', [
+                'json' => [
+                    'username' => $request->input('username'),
+                    'password' => $request->input('password'),
+                ]
+            ]);
 
-        if ($response->ok() && $responseData['sukses']) {
-            $user = $responseData['data']; // Assuming the user data is returned in 'data'
+            $data = json_decode($response->getBody()->getContents(), true);
 
-            // Check if the user's role is 2 or 3
-            if (in_array($user['role'], [2, 3])) {
-                // Handle successful login and redirect
-                return redirect()->route('dashboard')->with('success', $responseData['msg']);
+            if (isset($data['msg']) && $data['msg'] == 'Berhasil Login') {
+                Session::put([
+                    'logged_in' => true,
+                    'user_id' => $data['data']['_id'],
+                    'nama' => $data['data']['namalengkap'],
+                    'username' => $data['data']['username'],
+                ]);
+                $request->session()->regenerate();
+                return redirect('/dashboard');
             } else {
-                // Handle role not authorized
-                return redirect()->back()->withErrors(['login_error' => 'You do not have permission to access this area']);
+                return redirect()->back()->withErrors(['message' => $data['msg']]);
             }
-        } else {
-            // Handle login failure
-            return redirect()->back()->withErrors(['login_error' => $responseData['msg']]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['message' => 'An error occurred during the login process. Please try again later.']);
         }
     }
 }

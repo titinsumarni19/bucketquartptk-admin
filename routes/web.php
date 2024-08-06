@@ -22,33 +22,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AuthController::class,'loginForm']);
-Route::post('/login',[AuthController::class,'login'])->name('auth.login');
+Route::get('/',[AuthController::class,'index'])->name('login');
+Route::post('/login',[AuthController::class,'login']);
+
+Route::middleware('check.login')->group(function () {
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/produk',[ProdukController::class,'index'])->name('produk');
+    Route::get('/kategori',[KategoriController::class,'index'])->name('kategori');
+    Route::get('/transaksi',[TransaksiController::class,'index'])->name('transaksi');
+    Route::get('/riwayat-transaksi',[RiwayatTransaksiController::class,'index'])->name('riwayat-transaksi');
 
 
-Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-Route::get('/produk',[ProdukController::class,'index'])->name('produk');
-Route::get('/kategori',[KategoriController::class,'index'])->name('kategori');
-Route::get('/transaksi',[TransaksiController::class,'index'])->name('transaksi');
-Route::get('/riwayat-transaksi',[RiwayatTransaksiController::class,'index'])->name('riwayat-transaksi');
+    Route::get('/produk/create', [ProdukController::class, 'createProduk'])->name('produk.create');
+    Route::post('/produk/store', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/produk/editProduk/{id}', [ProdukController::class, 'editProduk'])->name('produk.edit');
+    Route::put('/produk/updateProduk/{id}', [ProdukController::class, 'updateProduk'])->name('produk.update');
+    Route::delete('/produk/delete/{id}', [ProdukController::class, 'hapusProduk'])->name('produk.delete');
 
+    Route::get('/kategori/create', [KategoriController::class, 'createKategori'])->name('kategori.create');
+    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/kategori/editKategori/{id}', [KategoriController::class, 'editKategori'])->name('kategori.edit');
+    Route::put('/kategori/updateKategori/{id}', [KategoriController::class, 'updateKategori'])->name('kategori.update');
+    Route::delete('/kategori/delete/{id}', [KategoriController::class, 'hapusKategori'])->name('kategori.delete');
 
-Route::get('/produk/create', [ProdukController::class, 'createProduk'])->name('produk.create');
-Route::post('/produk/store', [ProdukController::class, 'store'])->name('produk.store');
-Route::get('/produk/editProduk/{id}', [ProdukController::class, 'editProduk'])->name('produk.edit');
-Route::put('/produk/updateProduk/{id}', [ProdukController::class, 'updateProduk'])->name('produk.update');
-Route::delete('/produk/delete/{id}', [ProdukController::class, 'hapusProduk'])->name('produk.delete');
-
-Route::get('/kategori/create', [KategoriController::class, 'createKategori'])->name('kategori.create');
-Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
-Route::get('/kategori/editKategori/{id}', [KategoriController::class, 'editKategori'])->name('kategori.edit');
-Route::put('/kategori/updateKategori/{id}', [KategoriController::class, 'updateKategori'])->name('kategori.update');
-Route::delete('/kategori/delete/{id}', [KategoriController::class, 'hapusKategori'])->name('kategori.delete');
-
-Route::get('/transaksi/editTransaksi/{id}', [TransaksiController::class, 'editTransaksi'])->name('transaksi.edit');
-Route::put('/transaksi/update/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
-Route::delete('/transaksi/delete/{id}', [TransaksiController::class, 'hapusTransaksi'])->name('transaksi.delete');
-
+    Route::get('/transaksi/editTransaksi/{id}', [TransaksiController::class, 'editTransaksi'])->name('transaksi.edit');
+    Route::put('/transaksi/update/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
+    Route::delete('/transaksi/delete/{id}', [TransaksiController::class, 'hapusTransaksi'])->name('transaksi.delete');
+});
 
 
 
