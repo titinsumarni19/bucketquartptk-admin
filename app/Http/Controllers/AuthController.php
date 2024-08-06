@@ -44,4 +44,9 @@ class AuthController extends Controller
             return back()->with('error', 'Failed to authenticate: ' . $e->getMessage());
         }
     }
+
+    public function logout(Request $request)
+    {
+        return redirect()->route('login');
+    }
 }

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/',[AuthController::class,'index'])->name('login');
     Route::post('/proses_login',[AuthController::class,'login'])->name('proses-login');
+    Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('/produk',[ProdukController::class,'index'])->name('produk');

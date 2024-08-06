@@ -15,7 +15,7 @@
                         @csrf
                         @method('PUT')
                         <div class="card-header">
-                            <h4>Edit Data Produk</h4>
+                            <h4>Edit Data Transaksi</h4>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())

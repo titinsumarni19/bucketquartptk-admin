@@ -16,7 +16,6 @@ class Authenticate extends Middleware
             // Check if the user is trying to access a specific route
             return route('login');
         }
-        
         return null;
     }
 }

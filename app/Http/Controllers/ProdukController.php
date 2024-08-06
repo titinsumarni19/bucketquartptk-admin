@@ -13,7 +13,7 @@ class ProdukController extends Controller
     {
         
         $client = new Client();
-        $url = 'http://103.175.217.148:5002/produk/getallproduk';
+        $url = 'http://103.175.217.148/produk/getallproduk';
 
         try {
             $response = $client->request('GET', $url);
@@ -38,7 +38,7 @@ class ProdukController extends Controller
     public function getKategori()
     {
         $client = new Client();
-        $url = 'http://103.175.217.148:5002/kategori/getallkategori';
+        $url = 'http://103.175.217.148/kategori/getallkategori';
 
         try {
             $response = $client->request('GET', $url);
@@ -77,7 +77,7 @@ class ProdukController extends Controller
         try {
     
             $response = Http::attach('image', file_get_contents($imagePath), $imageName)
-                ->post('http://103.175.217.148:5002/produk/create', [
+                ->post('http://103.175.217.148/produk/create', [
                     'namaproduk' => $request->namaproduk,
                     'idKategori' => $request->idKategori,
                     'deskripsi' => $request->deskripsi,
@@ -101,7 +101,7 @@ class ProdukController extends Controller
 
     public function editProduk($id) {
         $client =new Client();
-        $response = $client->request('GET', 'http://103.175.217.148:5002/produk/getprodukbyid/' . $id);
+        $response = $client->request('GET', 'http://103.175.217.148/produk/getprodukbyid/' . $id);
         $produk = json_decode($response->getBody()->getContents(), true);
         $kategoris = $this->getKategori();
 
@@ -115,7 +115,7 @@ class ProdukController extends Controller
     {
         try {
 
-            $response = Http::delete('http://103.175.217.148:5002/produk/delete/' . $id);
+            $response = Http::delete('http://103.175.217.148/produk/delete/' . $id);
 
 
             if ($response->status() === 200) {
@@ -148,7 +148,7 @@ class ProdukController extends Controller
         ]);
 
         $client = new Client();
-        $url = 'http://103.175.217.148:5002/produk/edit/' . $id;
+        $url = 'http://103.175.217.148/produk/edit/' . $id;
 
         try {
             $data = [
