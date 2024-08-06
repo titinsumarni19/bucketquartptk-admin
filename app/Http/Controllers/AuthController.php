@@ -40,7 +40,7 @@ class AuthController extends Controller
                     'username' => $data['data']['username'],
                 ]);
                 $request->session()->regenerate();
-                return redirect('/dashboard');
+                return redirect('dashboard');
             } else {
                 return redirect()->back()->withErrors(['message' => $data['msg']]);
             }

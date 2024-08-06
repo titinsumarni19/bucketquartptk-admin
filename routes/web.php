@@ -25,13 +25,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[AuthController::class,'index'])->name('login');
 Route::post('/login',[AuthController::class,'login']);
 
-Route::middleware('check.login')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('/produk',[ProdukController::class,'index'])->name('produk');
     Route::get('/kategori',[KategoriController::class,'index'])->name('kategori');
     Route::get('/transaksi',[TransaksiController::class,'index'])->name('transaksi');
     Route::get('/riwayat-transaksi',[RiwayatTransaksiController::class,'index'])->name('riwayat-transaksi');
-
 
     Route::get('/produk/create', [ProdukController::class, 'createProduk'])->name('produk.create');
     Route::post('/produk/store', [ProdukController::class, 'store'])->name('produk.store');
