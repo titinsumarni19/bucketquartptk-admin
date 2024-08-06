@@ -23,7 +23,7 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         $client = new Client();
-        $url = 'http://103.175.217.148:5002/user/login';
+        $url = 'http://103.175.217.148/user/login';
 
         try {
             $response = $client->post($url, [
