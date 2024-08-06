@@ -12,7 +12,7 @@ class KategoriController extends Controller
     public function index()
     {
         $client = new Client();
-        $url = '103.175.217.148/kategori/getallkategori';
+        $url = 'http://103.175.217.148:5002/kategori/getallkategori';
 
         try {
             $response = $client->request('GET', $url);
@@ -41,7 +41,7 @@ class KategoriController extends Controller
         ]);
 
         try {
-            $response = Http::post('103.175.217.148/kategori/create', [
+            $response = Http::post('http://103.175.217.148:5002/kategori/create', [
                 'namakategori' => $request->namakategori,
                 'deskripsi' => $request->deskripsi,
             ]);
@@ -68,7 +68,7 @@ class KategoriController extends Controller
 
     public function editKategori($id) {
         $client =new Client();
-        $response = $client->request('GET', '103.175.217.148/kategori/getkategoribyid/' . $id);
+        $response = $client->request('GET', 'http://103.175.217.148:5002/kategori/getkategoribyid/' . $id);
         $kategori = json_decode($response->getBody()->getContents(), true);
 
         if($response->getStatusCode() !== 200) {
@@ -82,7 +82,7 @@ class KategoriController extends Controller
     {
         try {
 
-            $response = Http::delete('103.175.217.148/kategori/delete/' . $id);
+            $response = Http::delete('http://103.175.217.148:5002/kategori/delete/' . $id);
 
 
             if ($response->status() === 200) {
@@ -112,7 +112,7 @@ class KategoriController extends Controller
 
         try {
             $client = new Client();
-            $url = '103.175.217.148/kategori/edit/' . $id;
+            $url = 'http://103.175.217.148:5002/kategori/edit/' . $id;
 
             $response = $client->request('PUT', $url, [
                 'json' => $request->all(),
