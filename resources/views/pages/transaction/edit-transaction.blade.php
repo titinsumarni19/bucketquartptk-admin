@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <label>Total Transaksi</label>
                                 <input type="text" class="form-control @error('totaltransaksi') is-invalid @enderror"
-                                    name="totaltransaksi" value="{{ old('totaltransaksi', $transaksis['totaltransaksi']) }}" readonly>
+                                    name="totaltransaksi" value="Rp.{{ old('totaltransaksi', $transaksis['totaltransaksi']) }}" readonly>
                                 @error('totaltransaksi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -92,7 +92,6 @@
                                     <option value="3">Bucket Sudah Diserahkan ke Kurir</option>
                                     <option value="4">Bucket Sedang dalam perjalanan</option>
                                     <option value="5">Pesanan Sampai di Lokasi Pengiriman</option>
-                                    <option value="6">Pesanan Selesai</option>
                                 </select>
                                 @error('status')
                                 <div class="invalid-feedback">

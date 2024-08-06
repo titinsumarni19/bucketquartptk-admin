@@ -36,22 +36,22 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <a href="https://img.jakpost.net/c/2022/11/15/2022_11_15_132226_1668477590._large.jpg"></a>
+                                <a href="https://assets.gorajuara.com/crop/0x0:0x0/750x500/webp/photo/2023/06/01/COVER-GORAJUARA-1-581541497.png"></a>
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Admin - Bucketquarptk</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user"  action="{{ route('auth.login') }}" method="POST">
+                                        @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user"
+                                                name="username" placeholder="Masukkan Username">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                              name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -60,13 +60,10 @@
                                                     Saya</label>
                                             </div>
                                         </div>
-                                        <a href="dashboard" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                     </form>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

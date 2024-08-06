@@ -11,7 +11,7 @@ class TransaksiController extends Controller
 {
     public function index() {
         $client = new Client();
-        $url = 'http://127.0.0.1:5001/transaksi/getalltransaksi';
+        $url = 'http://103.175.217.148/transaksi/getalltransaksi';
 
         try {
             $response = $client->request('GET', $url);
@@ -34,7 +34,7 @@ class TransaksiController extends Controller
     public function editTransaksi($id)
     {
         $client =new Client();
-        $url = 'http://127.0.0.1:5001/transaksi/gettransaksibyid/' . $id;
+        $url = 'http://103.175.217.148/transaksi/gettransaksibyid/' . $id;
 
         try {
             $response = $client->request('GET', $url);
@@ -57,7 +57,7 @@ class TransaksiController extends Controller
     {
         try {
 
-            $response = Http::delete('http://127.0.0.1:5001/transaksi/delete/' . $id);
+            $response = Http::delete('http://103.175.217.148/transaksi/delete/' . $id);
 
 
             if ($response->status() === 200) {
@@ -86,7 +86,7 @@ class TransaksiController extends Controller
 
         try {
             $client = new Client();
-            $url = 'http://127.0.0.1:5001/transaksi/update/' . $id;
+            $url = 'http://103.175.217.148/transaksi/update/' . $id;
 
             $data = [
                 'status' => $request->input('status'),

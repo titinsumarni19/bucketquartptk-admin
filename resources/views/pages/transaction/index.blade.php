@@ -46,7 +46,7 @@
                             @else
                                 Produk Tidak Ditemukan
                             @endif</td>
-                        <td>{{ $t['totaltransaksi'] }}</td>
+                        <td>Rp.{{ $t['totaltransaksi'] }}</td>
                         <td>
                             @if( $t['status']  == 0)
                             Pesanan bucket diterima

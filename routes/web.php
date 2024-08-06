@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AuthController::class,'login']);
+Route::get('/',[AuthController::class,'loginForm']);
+Route::post('/login',[AuthController::class,'login'])->name('auth.login');
 
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
@@ -42,7 +43,7 @@ Route::get('/kategori/create', [KategoriController::class, 'createKategori'])->n
 Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
 Route::get('/kategori/editKategori/{id}', [KategoriController::class, 'editKategori'])->name('kategori.edit');
 Route::put('/kategori/updateKategori/{id}', [KategoriController::class, 'updateKategori'])->name('kategori.update');
-Route::delete('/kategori/delete/{id}', [KategoriController::class, 'hapuseKategori'])->name('kategori.delete');
+Route::delete('/kategori/delete/{id}', [KategoriController::class, 'hapusKategori'])->name('kategori.delete');
 
 Route::get('/transaksi/editTransaksi/{id}', [TransaksiController::class, 'editTransaksi'])->name('transaksi.edit');
 Route::put('/transaksi/update/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
