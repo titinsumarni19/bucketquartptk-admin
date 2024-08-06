@@ -11,7 +11,7 @@ class RiwayatTransaksiController extends Controller
 {
     public function index() {
         $client = new Client();
-        $url = 'http://103.175.217.148/transaksi/getalltransaksi';
+        $url = '103.175.217.148/transaksi/getalltransaksi';
 
         try {
             $response = $client->request('GET', $url);
