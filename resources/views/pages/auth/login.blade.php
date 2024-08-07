@@ -22,10 +22,8 @@
 
 </head>
 
-<body class="bg-gradient-primary">
-
-    <div class="container">
-
+<body class="bg-gradient-primary d-flex align-items-center" style="height: 100vh;">
+   <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
@@ -36,7 +34,9 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <a href="https://assets.gorajuara.com/crop/0x0:0x0/750x500/webp/photo/2023/06/01/COVER-GORAJUARA-1-581541497.png"></a>
+                                <a href="https://assets.gorajuara.com/crop/0x0:0x0/750x500/webp/photo/2023/06/01/COVER-GORAJUARA-1-581541497.png">
+                                <img src="https://assets.gorajuara.com/crop/0x0:0x0/750x500/webp/photo/2023/06/01/COVER-GORAJUARA-1-581541497.png" alt="Gambar Login" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                                </a>
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
