@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -34,19 +35,33 @@ class AuthController extends Controller
             ]);
 
             $data = json_decode($response->getBody(), true);
+            $user = $data['data']['role'];
 
-            if ($data['sukses']) {
+            if (isset($data['sukses']) && $data['msg'] == "Berhasil Login" && $user == 2) {
+                Session::put([
+                    'logged_in' => true,
+                    'user_id' => $data['data']['_id'],
+                    'username' => $data['data']['username'],
+                    'name' => $data['data']['namalengkap'],
+                    'phone' => $data['data']['telepon'],
+                    'role' => $data['data']['role'],
+                ]);
+
+                $request->session()->regenerate();
                 return redirect()->route('dashboard');
             } else {
                 return back()->with('error', $data['msg']);
             }
         } catch (\Exception $e) {
+            \Log::error('Login Error:', ['exception' => $e]);
             return back()->with('error', 'Failed to authenticate: ' . $e->getMessage());
         }
     }
 
     public function logout(Request $request)
     {
+        Session::flush();
+        $request->session()->regenerate();
         return redirect()->route('login');
     }
 }

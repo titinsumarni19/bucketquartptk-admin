@@ -24,6 +24,7 @@
                         <th>Nama Produk</th>
                         <th>Total Transaksi</th>
                         <th>Status</th>
+                        <th>Manage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,17 @@
                             @if( $t['status']  == 6)
                             Pesanan Selesai
                             @endif
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <form id="delete-form" action="{{ route('riwayat.delete', $t['_id']) }}" method="POST" class="ml-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                        <i class="fas fa-times"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

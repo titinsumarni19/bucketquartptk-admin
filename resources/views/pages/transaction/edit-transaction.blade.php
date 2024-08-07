@@ -29,9 +29,9 @@
                             @endif
                             <div class="form-group">
                                 <label>Nama Pelanggan</label>
-                                <input type="text" class="form-control @error('idUser') is-invalid @enderror"
-                                    name="idUser" value="{{ old('idUser', $transaksis['idUser']['namalengkap']) }}" readonly>
-                                @error('idUser')
+                                <input type="text" class="form-control @error('namalengkap') is-invalid @enderror"
+                                    name="namalengkap" value="{{ old('idUser', $transaksis['idUser']['namalengkap']) }}" readonly>
+                                @error('namalengkap')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -92,7 +92,6 @@
                                     <option value="3">Bucket Sudah Diserahkan ke Kurir</option>
                                     <option value="4">Bucket Sedang dalam perjalanan</option>
                                     <option value="5">Pesanan Sampai di Lokasi Pengiriman</option>
-                                    <option value="6">Pesanan Selesai</option>
                                 </select>
                                 @error('status')
                                 <div class="invalid-feedback">

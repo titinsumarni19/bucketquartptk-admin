@@ -24,8 +24,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/',[AuthController::class,'index'])->name('login');
     Route::post('/proses_login',[AuthController::class,'login'])->name('proses-login');
-    Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+    Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
+Route::middleware(['check.login'])->group(function () {
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('/produk',[ProdukController::class,'index'])->name('produk');
     Route::get('/kategori',[KategoriController::class,'index'])->name('kategori');
@@ -48,5 +49,7 @@ use Illuminate\Support\Facades\Route;
     Route::put('/transaksi/update/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('/transaksi/delete/{id}', [TransaksiController::class, 'hapusTransaksi'])->name('transaksi.delete');
 
+    Route::delete('/riwayat/delete/{id}',[RiwayatTransaksiController::class,'hapusRiwayat'])->name('riwayat.delete');
+});
 
 
