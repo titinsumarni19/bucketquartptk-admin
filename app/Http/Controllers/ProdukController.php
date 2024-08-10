@@ -62,11 +62,11 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namaproduk' => 'required',
+            'namaproduk' => 'required|string|max:30',
             'idKategori' => 'required',
-            'deskripsi' => 'required',
-            'stok' => 'required|integer',
-            'harga' => 'required|numeric',
+            'deskripsi' => 'required|string|max:50',
+            'stok' => 'required|integer|max:3',
+            'harga' => 'required|numeric|max:7',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
