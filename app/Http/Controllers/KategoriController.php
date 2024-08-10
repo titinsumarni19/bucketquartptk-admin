@@ -106,8 +106,8 @@ class KategoriController extends Controller
     public function updateKategori(Request $request, $id)
     {
         $request->validate([
-            'namakategori' => 'required',
-            'deskripsi' => 'required',
+            'namakategori' => 'required|string|max:30',
+            'deskripsi' => 'required|string|max:50',
         ]);
 
         try {

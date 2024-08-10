@@ -139,9 +139,9 @@ class ProdukController extends Controller
     public function updateProduk(Request $request, $id)
     {
         $request->validate([
-            'namaproduk' => 'required',
+            'namaproduk' => 'required|string|max:30',
             'idKategori' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string|max:50',
             'stok' => 'required|integer',
             'harga' => 'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // image tidak diwajibkan
