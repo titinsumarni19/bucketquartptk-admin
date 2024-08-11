@@ -96,7 +96,7 @@
                                 <label>Gambar Produk Saat Ini</label>
                                 @if($produk['data']['image'])
                                     <div>
-                                        <img src="http://localhost:5001/static/{{ $produk['data']['image'] }}" alt="Current Image" style="max-width: 200px;">
+                                        <img src="http://103.175.217.148/static/{{ $produk['data']['image'] }}" alt="Current Image" style="max-width: 200px;">
                                     </div>
                                 @endif
                             </div>
