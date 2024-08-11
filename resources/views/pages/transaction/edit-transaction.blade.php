@@ -38,9 +38,15 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>No. Handphone & Alamat</label>
-                                <input type="text" class="form-control @error('telpon&alamat') is-invalid @enderror"
-                                    name="telpon&alamat" value="{{ $transaksis['idUser']['telepon'] }} | {{$transaksis['idUser']['alamat']}}" readonly>
+                                <label>Detail Lengkap</label>
+                                @php
+                                    $penerima = $transaksis['penerimaBaru'] ?? $transaksis['idUser']['namalengkap'];
+                                    $telepon = $transaksis['teleponBaru'] ?? $transaksis['idUser']['telepon'];
+                                    $alamat = $transaksis['alamatBaru'] ?? $transaksis['idUser']['alamat'];
+                                    $detailLengkap = $penerima . ' | ' . $telepon . ' | ' . $alamat;
+                                @endphp
+                                <input type="text" class="form-control @error('detailLengkap') is-invalid @enderror"
+                                    name="detailLengkap" value="{{ old('detailLengkap', $detailLengkap) }}" readonly>
                                 @error('telpon&alamat')
                                 <div class="invalid-feedback">
                                     {{ $message }}

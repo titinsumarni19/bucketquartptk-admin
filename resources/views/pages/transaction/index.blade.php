@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>Nama Pelanggan</th>
-                        <th>No.Handphone & Alamat</th>
+                        <th>Detail Lengkap</th>
                         <th>Nama Produk</th>
                         <th>Total Transaksi</th>
                         <th>Status</th>
@@ -34,7 +34,12 @@
                     @foreach($transaksis as $t)
                     <tr>
                         <td>{{ $t['idUser']['namalengkap'] }}</td>
-                        <td>{{ $t['idUser']['telepon'] }} | {{ $t['idUser']['alamat'] }}</td>
+                        <td> @php
+                                $penerima = $t['penerimaBaru'] ?? $t['idUser']['namalengkap'];
+                                $telepon = $t['teleponBaru'] ?? $t['idUser']['telepon'];
+                                $alamat = $t['alamatBaru'] ?? $t['idUser']['alamat'];
+                            @endphp
+                            {{ $penerima }} | {{ $telepon }} | {{ $alamat }}</td>
                         <td>@if(isset($t['produkItems']) && is_array($t['produkItems']))
                                 @foreach($t['produkItems'] as $item)
                                     @if(isset($item['idProduk']) && is_array($item['idProduk']))
